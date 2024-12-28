@@ -297,6 +297,9 @@ public class EmblemCommands : InteractionModuleBase<ShardedInteractionContext>
         {
             var errorEmbed = Embeds.MakeErrorEmbed();
             errorEmbed.Description = error.Message;
+            if (error.StackTrace != null) {
+                errorEmbed.Description += "\n" + error.StackTrace.Split(Environment.NewLine).FirstOrDefault();
+            }
             await FollowupAsync(embed: errorEmbed.Build());
             return;
         }
